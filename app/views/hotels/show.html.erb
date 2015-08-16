@@ -1,0 +1,9 @@
+<h1><%= @hotel.title %></h1>
+
+<%= @hotel.room_description %>
+<%= @hotel.breakfast %>
+<%= @hotel.price %>
+
+<%= link_to 'Back', hotels_path, :class=> 'btn btn-inverse' %>
+<%= link_to 'Edit', edit_hotel_path, :class=> 'btn btn-inverse' %>
+<%= link_to "Delete", @hotel, method: :delete, data: { confirm: "You sure?" }, :class=> 'btn btn-inverse'  %>

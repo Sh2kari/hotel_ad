@@ -1,0 +1,12 @@
+<h1>Hotels</h1>
+
+<div id="hotel">
+<% @hotels.each do |h| %>
+  <h2><%= link_to h.title, h %></h2>
+  <%= h.title %>
+  <%= h.room_description %>
+  <%= h.price %>
+<% end %>
+</div>
+
+<p><%= link_to "New Hotel", new_hotel_path, :class=> 'btn btn-inverse' %></p>
