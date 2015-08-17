@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+#background{
+    width: 15%;
+    height: 40%;
+    background-color: #f4f4f4;
+    border-radius:7px;
+    margin-left:2px;
+    border: solid 1px blue;
+   }
+ #background:hover{
+    width: 15%;
+    height: 40%;
+    background-color: #f0ecec;
+    border-radius:5px;
+    margin-left:2px;
+    border: solid 1px;
+}
+.title {
+    font-size: 21px;
+    margin-left: 10px;
+}
+.desc{
+    margin-left: 25px;
+    font-size: 15px;
+    margin-top: 4px;
+}
+.price{
+    color: red;
+    margin-left:40px;
+    margin-top: -19px;
+}

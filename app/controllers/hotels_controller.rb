@@ -28,7 +28,7 @@ class HotelsController < ApplicationController
 
   def update
     @hotel = Hotel.find(params[:id])
-    if @hotel.update_attributes(params[:hotel])
+    if @hotel.update_attributes(hotel_params)
       redirect_to @hotel, notice: "Hotel was successfully updated."
     else
       render "edit"
@@ -43,6 +43,9 @@ class HotelsController < ApplicationController
 
   private
   def hotel_params
-    params.require(:hotel).permit(:title, :room_description, :price, :breakfast)
+    params.require(:hotel).permit(:title, :room_description, :price, :breakfast,
+                                  :image,
+                                  location_attributes: [:country, :city, :state,
+                                  :street])
   end
 end
