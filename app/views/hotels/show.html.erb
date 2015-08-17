@@ -3,7 +3,7 @@
      <ul class="thumbnails">
   <li class="span4">
     <div class="thumbnail">
-      <%= image_tag @hotel.image_url %>
+      <%= image_tag @hotel.image_url.to_s %>
       <h3><%= @hotel.title%></h3>
       <p><%= @hotel.room_description %></p>
       Price:<div class='price'><%= @hotel.price  %></div>
@@ -17,6 +17,32 @@
     </div>
   </li>
 </ul>
+
+    <h4><strong>Add your comment:</strong></h4>
+
+   <%= form_tag controller: "comments", actions: "create" do %>
+    <%= text_area_tag :content, "", size: '100x5' %>
+    <%= text_field_tag :hotel_id, @hotel.id, style: "display: none;" %><br/>
+    <%= submit_tag 'Add', :class => 'btn btn-inverse' %>
+<% end %>
+
+   <h2><strong>Comments</strong></h2>
+
+
+   <% @hotel.comment.each do |comment| %>
+    <div class="content">
+       <%=link_to comment.user.email if comment.user %>
+       <%= time_ago_in_words(comment.created_at) %> ago say:
+      <br/>
+      <p><%= comment.body %></p>
+      <% if current_user == comment.user %>
+      <%= link_to "Delete", comment, method: :delete, data: { confirm: "You sure?" } %>
+    </div>
+
+     <% end %>
+
+    <br/>
+<% end %>
 
 <%= link_to 'Back', hotels_path, :class=> 'btn btn-inverse' %>
 <%= link_to 'Edit', edit_hotel_path, :class=> 'btn btn-inverse' %>
