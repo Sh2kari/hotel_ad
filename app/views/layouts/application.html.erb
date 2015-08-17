@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Hotel Advisor</title>
+  <%= javascript_include_tag "jquery" %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -9,8 +10,6 @@
 <body>
 <div id="container">
   <div id="user_nav">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
 <% if user_signed_in? %>
     <span>Welcome, <%= current_user.email %></span>
     <%= link_to 'Edit profile', edit_user_registration_path %> |
@@ -19,6 +18,9 @@
     <%= link_to "Sign up", new_user_registration_path %> |
     <%= link_to 'Log in', new_user_session_path %>
 <% end %>
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, id: "flash_#{name}" %>
+  <% end %>
 <%= yield %>
 
 </body>

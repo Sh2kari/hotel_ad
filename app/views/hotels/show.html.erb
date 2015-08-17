@@ -3,7 +3,7 @@
      <ul class="thumbnails">
   <li class="span4">
     <div class="thumbnail">
-      <%= image_tag @hotel.image_url.to_s %>
+      <%= image_tag @hotel.image_url.to_s, size: '450x400' %>
       <h3><%= @hotel.title%></h3>
       <p><%= @hotel.room_description %></p>
       Price:<div class='price'><%= @hotel.price  %></div>

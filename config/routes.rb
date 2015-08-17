@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "hotels/new"
+  get "comments/destroy"
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
   
   resources :hotels
