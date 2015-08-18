@@ -14,7 +14,6 @@ gem 'bcrypt-ruby'
 gem 'devise'
 gem 'carrierwave'
 gem 'rmagick'
-gem 'mini_magick'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false
