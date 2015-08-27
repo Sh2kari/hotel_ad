@@ -3,10 +3,21 @@ class Hotel < ActiveRecord::Base
   mount_uploader :image
   has_one :location
   has_many :comment
+  has_many :ratings
+  has_many :raters, :through => :ratings, :source => :users
 
   accepts_nested_attributes_for :location
   validates :title, presence: true, length: { maximum: 50 }
   validates :room_description,      presence: true
   validates :price,                 presence: true
   validates :breakfast,             presence: true
+
+  def average_rating
+    @value = 0
+    self.ratings.each do |rating|
+      @value = @value.to_f + rating.value.to_f
+    end
+    @total = self.ratings.size
+    @value.to_f / @total.to_f
+  end
 end

@@ -1,4 +1,4 @@
-        </div>
+          </div>
          <hr>
      <ul class="thumbnails">
   <li class="span4">
@@ -14,6 +14,23 @@
     <%= @hotel.location.state %><br>
     <abbr title="Street"><%= @hotel.location.street %></abbr>
   </address>
+
+    <%= form_for rating_ballot, :html => {:class =>'rating_ballot'} do |f| %>
+      <% (1..5).each do |i| %>
+
+      <%= f.label("value_"+i.to_s , content_tag(:span, i.to_s), :class => "rating", :id=>i.to_s) %>
+      <%= radio_button_tag "rating[value]", i, current_user_rating == i, :class => 'rating_button' %>
+
+
+      <% end %>
+      <%= hidden_field_tag("hotel_id", @hotel.id) %>
+      <%= f.submit "Submit" %>
+
+    <% end %>
+
+      Average rating:
+      <%= @hotel.average_rating %>
+
     </div>
   </li>
 </ul>
