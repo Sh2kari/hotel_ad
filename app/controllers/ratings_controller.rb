@@ -1,19 +1,14 @@
 class RatingsController < ApplicationController
   before_filter :authenticate_user!
-
     def create
-    @hotel = Hotel.find_by_id(params[:hotel_id])
+      @hotel = Hotel.find_by_id(params[:hotel_id])
       @rating = Rating.new(rating_params)
-      if current_user.id == @hotel.id
-        redirect_to hotel_path(@hotel), :alert => "You cannot rate for your own hotel"
+      @rating.hotel_id = @hotel.id
+      @rating.user_id = current_user.id
+      if @rating.save
+        redirect_to hotel_path(@hotel), :notice => "Your rating has been saved"
       else
-        @rating.hotel_id = @hotel.id
-        @rating.user_id = current_user.id
-        if @rating.save
-          redirect_to hotel_path(@hotel), :notice => "Your rating has been saved"
-        else
-          redirect_to hotel_path(@hotel), :alert => "You already rate this hotel"
-        end
+        redirect_to hotel_path(@hotel), :alert => "You already rate this hotel"
       end
     end
 
