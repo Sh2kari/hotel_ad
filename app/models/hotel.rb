@@ -15,9 +15,9 @@ class Hotel < ActiveRecord::Base
   def average_rating
     @value = 0
     self.ratings.each do |rating|
-      @value = @value.to_f + rating.value.to_f
+      @value = @value + rating.value
     end
     @total = self.ratings.size
-    @value.to_f / @total.to_f
+    (@value.to_f / @total.to_f).round(1)
   end
 end

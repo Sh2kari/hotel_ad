@@ -7,7 +7,9 @@
       <%= image_tag h.image_url.to_s %>
     </div>
     Price: <div class='price'><%= h.price  %></div>
+    Rating: <%= h.average_rating %>
   </div>
   <hr>
   <% end %>
+
 <p><%= link_to "New Hotel", new_hotel_path, :class=> 'btn btn-inverse' %></p>

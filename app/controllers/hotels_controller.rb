@@ -2,7 +2,7 @@ class HotelsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    @hotels = Hotel.all
+    @hotels = Hotel.all.sort_by { |h| -h.average_rating }.first(5)
   end
 
   def show
