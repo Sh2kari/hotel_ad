@@ -8,10 +8,10 @@ class CommentsController < ApplicationController
     @comment.hotel_id = params[:hotel_id]
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to :back}
+        format.html { redirect_to :back }
         format.js
       else
-        format.html { redirect_to :back, :notice => "Error, try again!" }
+        format.html { redirect_to :back, notice: 'Error, try again!' }
       end
     end
   end

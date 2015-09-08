@@ -20,18 +20,18 @@ class HotelsController < ApplicationController
   def create
     @hotel = Hotel.new(hotel_params)
     if @hotel.save
-      redirect_to @hotel, notice: "Hotel was successfully created."
+      redirect_to @hotel, notice: 'Hotel was successfully created.'
     else
-      render "new"
+      render 'new'
     end
   end
 
   def update
     @hotel = Hotel.find(params[:id])
     if @hotel.update_attributes(hotel_params)
-      redirect_to @hotel, notice: "Hotel was successfully updated."
+      redirect_to @hotel, notice: 'Hotel was successfully updated.'
     else
-      render "edit"
+      render 'edit'
     end
   end
 
@@ -42,10 +42,11 @@ class HotelsController < ApplicationController
   end
 
   private
+
   def hotel_params
     params.require(:hotel).permit(:title, :room_description, :price, :breakfast,
                                   :image,
                                   location_attributes: [:country, :city, :state,
-                                  :street])
+                                                        :street])
   end
 end

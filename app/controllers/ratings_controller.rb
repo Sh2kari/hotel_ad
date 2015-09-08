@@ -14,10 +14,7 @@ class RatingsController < ApplicationController
 
     def update
       @hotel = Hotel.find_by_id(params[:hotel_id])
-      if current_user.id == @hotel.id
-        redirect_to hotel_path(@hotel), :alert => "You cannot rate for your own hotel"
-      else
-        @rating = current_user.ratings.find_by_hotel_id(@hotel.id)
+      @rating = current_user.ratings.find_by_hotel_id(@hotel.id)
         if @rating.update_attributes(params[:rating])
           redirect_to hotel_path(@hotel), :notice => "Your rating has been updated"
         end

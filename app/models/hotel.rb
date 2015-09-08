@@ -4,7 +4,7 @@ class Hotel < ActiveRecord::Base
   has_one :location
   has_many :comment
   has_many :ratings
-  has_many :raters, :through => :ratings, :source => :users
+  has_many :raters, through: :ratings, source: :users
 
   accepts_nested_attributes_for :location
   validates :title, presence: true, length: { maximum: 50 }
@@ -14,10 +14,10 @@ class Hotel < ActiveRecord::Base
 
   def average_rating
     @value = 0
-    self.ratings.each do |rating|
-      @value = @value + rating.value
+    ratings.each do |rating|
+      @value += rating.value
     end
-    @total = self.ratings.size
+    @total = ratings.size
     @total == 0 ? 0 : (@value.to_f / @total.to_f).round(1)
   end
 end

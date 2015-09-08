@@ -6,11 +6,12 @@ module ApplicationHelper
       current_user.ratings.new
     end
   end
+
   def current_user_rating
     if @rating = current_user.ratings.find_by_hotel_id(params[:id])
       @rating.value
     else
-      "N/A"
+      'N/A'
     end
   end
 end
