@@ -233,6 +233,7 @@ DEPENDENCIES
   pg
   rails
   rails_12factor
+  responders
   rmagick
   rspec-rails
   rubocop
