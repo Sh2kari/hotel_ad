@@ -1,44 +1,43 @@
 class HotelsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  respond_to :html
+  before_filter :authenticate_user!, except: [:index]
 
   def index
     @hotels = Hotel.all.sort_by { |h| -h.average_rating }.first(5)
+    respond_with(@hotels)
   end
 
   def show
     @hotel = Hotel.find(params[:id])
+    respond_with(@hotel)
   end
 
   def new
     @hotel = Hotel.new
+    respond_with(@hotel)
   end
 
   def edit
     @hotel = Hotel.find(params[:id])
+    respond_with(@hotel)
   end
 
   def create
     @hotel = Hotel.new(hotel_params)
-    if @hotel.save
-      redirect_to @hotel, notice: 'Hotel was successfully created.'
-    else
-      render 'new'
-    end
+    flash[:notice] = 'Hotel was successfully created.' if @hotel.save
+    respond_with(@hotel)
   end
 
   def update
     @hotel = Hotel.find(params[:id])
-    if @hotel.update_attributes(hotel_params)
-      redirect_to @hotel, notice: 'Hotel was successfully updated.'
-    else
-      render 'edit'
-    end
+    flash[:notice] = 'Hotel was successfully updated.' if @hotel.update_attributes(hotel_params)
+    respond_with(@hotel)
   end
 
   def destroy
     @hotel = Hotel.find(params[:id])
-    @hotel.destroy
-    redirect_to hotels_url
+    flash[:notice] = 'Hotel was successfully deleted.' if @hotel.destroy
+    respond_with(@hotel)
   end
 
   private

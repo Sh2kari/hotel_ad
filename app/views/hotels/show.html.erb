@@ -37,7 +37,7 @@
 
     <h4><strong>Add your comment:</strong></h4>
 
-   <%= form_tag controller: "comments", actions: "create" do %>
+<%= form_tag controller: "comments", actions: "create" do %>
     <%= text_area_tag :content, "", size: '100x5' %>
     <%= text_field_tag :hotel_id, @hotel.id, style: "display: none;" %><br/>
     <%= submit_tag 'Add', :class => 'btn btn-inverse' %>

@@ -1,27 +1,30 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  respond_to :html
+  before_filter :authenticate_user!
 
   def create
     @comment = Comment.new
-    @comment.body = params[:content]
+    @comment.body = content_params
     @comment.user_id = current_user.id
-    @comment.hotel_id = params[:hotel_id]
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to :back }
-        format.js
-      else
-        format.html { redirect_to :back, notice: 'Error, try again!' }
-      end
+    @comment.hotel_id = (params[:hotel_id])
+    flash[:notice] = 'Comment was successfully created.' if @comment.save
+    respond_with(@comment) do |format|
+      format.html { redirect_to :back }
     end
   end
 
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    respond_to do |format|
+    flash[:notice] = 'Comment was successfully deleted.' if @comment.destroy
+    respond_with(@comment) do |format|
       format.html { redirect_to :back }
-      format.json { head :no_content }
     end
+  end
+
+  private
+
+  def content_params
+    params.require(:content)
   end
 end
