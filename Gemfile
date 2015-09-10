@@ -13,7 +13,7 @@ gem 'rubocop'
 gem 'bcrypt-ruby'
 gem 'devise'
 gem 'carrierwave'
-gem 'rmagick'
+gem 'mini_magick'
 gem 'responders'
 
 group :doc do
