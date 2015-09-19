@@ -1,0 +1,26 @@
+%hr
+  .thumbnail
+    = image_tag @hotel.image_url.to_s, size: '450x400'
+    %h3= @hotel.title
+    Room description
+    %p= @hotel.room_description
+    Breakfast:
+    %p= @hotel.breakfast
+    Price:
+    .price= @hotel.price
+    %br/
+    %h3 Hotel address:
+    %p
+      %strong= @hotel.location.country
+    %p
+      = @hotel.location.city
+      %br
+        = @hotel.location.state
+        %br
+          %abbr{:title => "Street"}= @hotel.location.street
+        = render 'hotels/rating'
+  = render 'hotels/comment'
+
+  = link_to 'Back', hotels_path, :class=> 'btn btn-inverse'
+  = link_to 'Edit', edit_hotel_path, :class=> 'btn btn-inverse'
+  = link_to "Delete", @hotel, method: :delete, data: { confirm: "You sure?" }, :class=> 'btn btn-inverse'

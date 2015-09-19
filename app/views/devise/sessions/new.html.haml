@@ -1,0 +1,11 @@
+.col-md-offset-4.col-md-4
+  .page-header
+    %h2 Log in
+  = simple_form_for(resource, url: session_path(resource_name)) do |f|
+    = f.input :email, class: 'form-control'
+    = f.input :password,  class: 'form-control'
+    %label
+      = f.input :remember_me, :as => :boolean, :label => false, :inline_label => true if devise_mapping.rememberable?
+      = f.button :submit, "Log in", class: 'btn btn-primary'
+  %hr
+  = render "devise/shared/links"

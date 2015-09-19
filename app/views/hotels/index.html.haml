@@ -1,0 +1,12 @@
+%h1 Hotels
+- @hotels.each do |h|
+  #background
+    .title
+      = link_to h.title, h
+      %br/
+      = image_tag h.image_url.to_s
+    Price:
+    .price= h.price
+    Rating: #{h.average_rating}
+  %hr
+%p= link_to "New Hotel", new_hotel_path, :class=> 'btn btn-inverse'

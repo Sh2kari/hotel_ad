@@ -1,0 +1,19 @@
+%h4
+  %strong Create your comment:
+= simple_form_for @comment, url: comments_path  do |f|
+  = f.text_area :body, size: '100x5'
+  = f.input :hotel, as: :hidden
+  %br
+    = f.button :submit, class: 'btn btn-primary'
+%h2
+  %strong Comments
+- @hotel.comments.each do |comment|
+  .content
+    = link_to comment.user.email if comment.user
+    = time_ago_in_words(comment.created_at)
+    ago say:
+    %br
+      %p= comment.body
+      - if current_user == comment.user
+        = link_to "Delete", comment, method: :delete, data: { confirm: "You sure?" }
+  %br
