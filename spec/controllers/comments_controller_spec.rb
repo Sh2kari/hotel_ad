@@ -4,6 +4,8 @@ RSpec.describe CommentsController, :type => :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
     sign_in @user
+    @hotel = FactoryGirl.create(:hotel)
+    @comment = FactoryGirl.create(:comment)
   end
 
   it 'should have a current_user' do
@@ -13,9 +15,8 @@ RSpec.describe CommentsController, :type => :controller do
   describe 'POST create comment' do
     describe 'with valid params' do
       it 'creates a new comment, response, assigns' do
-        comment = FactoryGirl.create(:comment)
         expect {
-          post :create, comment: { body: 'new_comment', hotel_id: 'hotel_id', user_id: 'user_id' }
+          post :create, comment: { body: 'new comment', hotel_id: 'hotel_id' }
         }.to change(Comment, :count).by(1)
         expect(flash[:notice]).to eq('Comment was successfully created.')
         expect(assigns(:comment)).to eq(Comment.last)
@@ -26,7 +27,7 @@ RSpec.describe CommentsController, :type => :controller do
     describe 'with invalid params' do
       it 'do not create a new comment, re-render show' do
         expect {
-          post :create, comment: { body: '', hotel_id: 'hotel_id', user_id: 'user_id' }
+          post :create, comment: { body: '', hotel_id: 'hotel_id' }
         }.to change(Comment, :count).by(0)
         expect(flash[:notice]).to eq('Comment are blank or too long.')
         expect(response).to redirect_to(hotel_path(:hotel_id))
@@ -36,10 +37,13 @@ RSpec.describe CommentsController, :type => :controller do
 
   describe 'delete' do
     it 'destroys comment and redirects to show page of hotel' do
-      comment = Comment.create!(body: 'new_comment', hotel_id: 'hotel.id', user_id: 'user.id')
+      user = FactoryGirl.create(:user, email: 'buba_sev5@example.com')
+      hotel = FactoryGirl.create(:hotel)
+      comment = Comment.create(body: 'best hotel', user_id: user.id, hotel_id: hotel.id)
       expect {
-        delete :destroy, { id: comment.id, hotel_id: comment.hotel_id }
+        delete :destroy, id: comment.id, hotel_id: 'hotel_id'
       }.to change(Comment, :count).by(-1)
+      expect(response).to redirect_to(hotel_path(hotel))
     end
   end
 end
