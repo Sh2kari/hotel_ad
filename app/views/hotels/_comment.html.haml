@@ -15,5 +15,5 @@
     %br
       %p= comment.body
       - if current_user == comment.user
-        = link_to "Delete", comment, method: :delete, data: { confirm: "You sure?" }
+        = link_to "delete", comment, method: :delete, data: { confirm: "You sure?" }
   %br
